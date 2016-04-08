@@ -19,6 +19,9 @@ data CFingerTree r a b where
   Single :: r a b -> CFingerTree r a b
   Deep   :: !(Digit r a b) -> CFingerTree (Node r) b c -> !(Digit r c d) -> CFingerTree r a d
 
+instance Category (CFingerTree r) where
+  id = tempty
+  (.) = flip (><) -- not (><): type error
 
 data Node r a b where
   Node2 :: r a b -> r b c -> Node r a c
